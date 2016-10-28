@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+  char *fileSystem;
+  char *currentDir;
+  int currentSector;
+  char dirName[8] = "        " ;
+  int position = 0x00;
+  int fileIndicator;
+  int result; //for the do while loop 1 is found, -1 is error, 2 is doesn't exist 
+  
+  if(argc > 2)
+    {
+      printf("Wrong number of arguments.");
+    }
+
+  if(argc == 1)
+    {
+      currentDir = "/";
+      currentSector = 32;
+    }
+
+  int i;
+  result = 0;
+  do
+    {
+      for(i = 0; i < 8; i++)
+	{
+	  dirName[i] = currentDir[position+i];
+	}
+      fileIndicator = currentDir[position+0x10];
+
+      if(dirName == argv[1])
+	{
+	  if(fileIndicator == 0x10)
+	    {
+	      result = 1;
+	    }
+	  else
+	    {
+	      result = -1;
+	    }
+	}
+      else if(dirName[0] == 0x00 | dirName[0] == 0xF6)
+	{
+	  result = 2;
+	}
+      else
+	{
+	  position = position + 0x20;
+	}
+      }while(result == 0);
+  
+  if(result == 1)
+    {
+      int currentDir[position +
+    }
+  
+  return 0;
+}
