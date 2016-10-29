@@ -15,15 +15,14 @@ int main()
   stat("test.txt", &st);
   fileSize = st.st_size;
   
-  addr = mmap(NULL, fileSize, PROT_WRITE, MAP_SHARED, fp, 0);
+  addr = mmap(0x1234, fileSize, PROT_WRITE, MAP_SHARED, fp, 0);
   if(addr == MAP_FAILED)
     {
       printf("mmap failed.");
     }
 
-  printf("%d\n%s", fileSize, addr);
+  printf("%d\n%s\n%d", fileSize, addr, *addr);
   
-  munmap(addr, fileSize);
   close(fp);
 
   return 0;

@@ -1,7 +1,6 @@
 /*
  * main.c
  *
- *  Created on: Dec 5, 2015
  *      Author: kmorris
  */
 #include <stdlib.h>
@@ -52,30 +51,13 @@ void runLoop()
 		args = parseInput(line);
 
 		//4. execute
-		status = executeGamesCommand(args);
+		status = executeCommand(args);
 
 		//cleanup
 		free(line);
 		free(args);
 
 	} while(status == 1);
-}
-
-int executeGamesCommand(char** cmd)
-{
-	int i;
-
-	if(cmd[0] == NULL)
-		return 1;
-
-	//checks if a built in command is entered
-	for(i = 0; i < NUM_BUILT_INS; i++)
-	{
-		if(strcmp(cmd[0], builtInStrings[i]) == 0)
-			return (*builtInFunctions[i])(cmd);
-	}
-
-	return executeCommand(cmd);
 }
 
 int executeCommand(char** cmd)
